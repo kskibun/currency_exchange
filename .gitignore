@@ -1,3 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite
+*.sqlite3
+
+# Virtual Environments
+venv/
+.env/
+../.venv/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+/logs/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
