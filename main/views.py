@@ -14,28 +14,14 @@ from .models import CurrencyRate, Currency
 
 
 class CurrencyFilter(django_filters.FilterSet):
-    currency1 = django_filters.CharFilter(field_name='currency1', lookup_expr='exact')
-    currency2 = django_filters.CharFilter(field_name='currency2', lookup_expr='exact')
+    currency1 = django_filters.CharFilter(field_name='currency1__currency_code', lookup_expr='exact')
+    currency2 = django_filters.CharFilter(field_name='currency2__currency_code', lookup_expr='exact')
 
 
     class Meta:
         model = CurrencyRate
         fields = ['currency1', 'currency2']
 
-    # get id by code from Currency db
-    def filter_queryset(self, queryset):
-        currency1_code = self.data.get('currency1')
-        currency2_code = self.data.get('currency2')
-
-        if currency1_code:
-            currency1_ids = Currency.objects.filter(currency_code=currency1_code).values_list('id', flat=True)
-            queryset = queryset.filter(currency1__id__in=currency1_ids)
-
-        if currency2_code:
-            currency2_ids = Currency.objects.filter(currency_code=currency2_code).values_list('id', flat=True)
-            queryset = queryset.filter(currency2__id__in=currency2_ids)
-
-        return queryset
 
 class CurrenciesView(generics.ListAPIView):
     queryset = Currency.objects.all().order_by('continent')

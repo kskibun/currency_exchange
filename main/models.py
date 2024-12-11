@@ -5,7 +5,7 @@ from django.db import models
 
 class Currency(models.Model):
     continent = models.CharField(max_length=10)
-    currency_code = models.CharField(max_length=3)
+    currency_code = models.CharField(max_length=3, unique=True)
 
 
     def __str__(self):
