@@ -1,12 +1,14 @@
-<form [formGroup]=form>
-<div class="input-field col s6">
-  <label  [for]="controlName">{{ label }}</label>
-  <input [id]="controlName" type="text" [formControlName]="controlName"/>
+<form [formGroup]="formGrp">
+  <div class="input-field col s6">
+  <mat-form-field ngDefaultControl>
+    <mat-label>{{label}}</mat-label>
+    <mat-select [formControlName]="selectedCtrl" required>
+      <mat-option *ngFor="let currency of currencies | keyvalue" [value]="currency.value">{{currency.value}}</mat-option>
 
-  <div *ngIf="form.get(controlName)?.invalid && form.get(controlName)?.touched">
-    <small *ngIf="form.get(controlName)?.hasError('required')">
-      {{ label }} is required.
-    </small>
+    </mat-select>
+      <mat-error *ngIf="formGrp.controls[selectedCtrl].errors?.['required']">
+        {{ label }} is required.
+      </mat-error>
+  </mat-form-field>
   </div>
-</div>
 </form>

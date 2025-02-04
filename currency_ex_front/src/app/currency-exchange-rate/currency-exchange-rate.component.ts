@@ -10,8 +10,8 @@ import {Currency} from "../interfaces/currency";
 })
 export class CurrencyExchangeRateComponent implements OnInit{
     formValidator : FormGroup;
-    availableCurrencies$: Observable<Currency>;
-
+    // availableCurrencies$: Observable<Currency>;
+    testCurrencies: any;
     constructor(private fb: FormBuilder) {
     }
 
@@ -20,7 +20,7 @@ export class CurrencyExchangeRateComponent implements OnInit{
         currency: ['', [Validators.required]],
         currency2: ['', [Validators.required]]
       })
-
+      this.testCurrencies = {'dupa': 'papa', "[a[a":'japa'}
     }
 
 
