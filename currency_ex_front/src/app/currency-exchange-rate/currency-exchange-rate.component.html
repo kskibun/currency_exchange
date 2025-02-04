@@ -1,0 +1,13 @@
+<form [formGroup]="formValidator">
+  <app-currency-input
+    [form] = "formValidator"
+    controlName = "currency"
+    label = "currency1">
+  </app-currency-input>
+
+  <app-currency-input
+    [form] = "formValidator"
+    controlName = "currency2"
+    label = "currency2">
+  </app-currency-input>
+</form>
