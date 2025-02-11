@@ -1,7 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Observable} from "rxjs";
 import {Currency} from "../interfaces/currency";
+import {CurrencyRateService} from "../currency-rate.service";
+import {Observable} from "rxjs";
+import {DataToSend} from "../interfaces/data-to-send";
+import {HttpClient} from "@angular/common/http";
+
 
 @Component({
   selector: 'app-currency-exchange-rate',
@@ -10,9 +14,11 @@ import {Currency} from "../interfaces/currency";
 })
 export class CurrencyExchangeRateComponent implements OnInit{
     formValidator : FormGroup;
-    // availableCurrencies$: Observable<Currency>;
-    testCurrencies: any;
-    constructor(private fb: FormBuilder) {
+    availableCurrencies$: Observable<any>;
+    parsedData: any;
+    constructor(private fb: FormBuilder,
+                private service: CurrencyRateService,
+                private http: HttpClient) {
     }
 
     ngOnInit(): void{
@@ -20,9 +26,12 @@ export class CurrencyExchangeRateComponent implements OnInit{
         currency: ['', [Validators.required]],
         currency2: ['', [Validators.required]]
       })
-      this.testCurrencies = {'dupa': 'papa', "[a[a":'japa'}
+      this.availableCurrencies$ = this.service.fetchCurrencies()
     }
 
 
+    sendData(){
 
+
+    }
 }

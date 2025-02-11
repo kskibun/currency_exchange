@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {DataToSend} from "../interfaces/data-to-send";
 
 @Component({
   selector: 'app-currency-input',
@@ -11,8 +11,15 @@ export class CurrencyInputComponent implements OnInit{
   @Input() label: string;
   @Input() currencies: any;
   @Input() selectedCtrl: any;
+  @Output() currenciesToSentEvent = new EventEmitter();
+  selectedData: any;
 
   ngOnInit(): void {
-    console.log(this.currencies)
+  }
+
+
+  xxx(chosenCurrency: DataToSend){
+    this.selectedData = chosenCurrency
+    this.currenciesToSentEvent.emit([this.selectedData, this.label])
   }
 }

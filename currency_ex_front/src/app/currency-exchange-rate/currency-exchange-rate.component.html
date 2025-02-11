@@ -2,14 +2,19 @@
   <app-currency-input
     [formGrp]= "formValidator"
     label = "currency1"
-    [currencies] = "testCurrencies"
+    [currencies] = "availableCurrencies$"
     selectedCtrl="currency"
+    (currenciesToSentEvent)="parsedData = $event"
   >
   </app-currency-input>
 
   <app-currency-input
     [formGrp]= "formValidator"
     label = "currency2"
-    selectedCtrl="currency2">
+    [currencies] = "availableCurrencies$"
+    selectedCtrl="currency2"
+    (currenciesToSentEvent)="parsedData = $event"
+  >
   </app-currency-input>
 </form>
+<mat-button-toggle (click)="sendData()">CLICK</mat-button-toggle>
