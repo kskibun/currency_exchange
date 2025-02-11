@@ -68,7 +68,8 @@
               "browserTarget": "currency_ex_front:build:production"
             },
             "development": {
-              "browserTarget": "currency_ex_front:build:development"
+              "browserTarget": "currency_ex_front:build:development",
+              "proxyConfig": "src/proxy.json"
             }
           },
           "defaultConfiguration": "development"

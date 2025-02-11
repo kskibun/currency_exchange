@@ -1,4 +1,4 @@
-from rest_framework import generics, status, viewsets
+from rest_framework import generics, status
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,6 +12,9 @@ from .models import CurrencyRate, Currency
 
 # from currency_exchange.main.models import CurrencyRate
 
+class Home(APIView):
+    def get(*args):
+        return Response(status=status.HTTP_200_OK)
 
 class CurrencyFilter(django_filters.FilterSet):
     currency1 = django_filters.CharFilter(field_name='currency1__currency_code', lookup_expr='exact')
