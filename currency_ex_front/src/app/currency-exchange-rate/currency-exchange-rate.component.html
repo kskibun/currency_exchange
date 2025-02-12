@@ -4,7 +4,7 @@
     label = "currency1"
     [currencies] = "availableCurrencies$"
     selectedCtrl="currency"
-    (currenciesToSentEvent)="parsedData = $event"
+    (currenciesToSentEvent)="chosenCurrency1 = $event"
   >
   </app-currency-input>
 
@@ -13,8 +13,8 @@
     label = "currency2"
     [currencies] = "availableCurrencies$"
     selectedCtrl="currency2"
-    (currenciesToSentEvent)="parsedData = $event"
+    (currenciesToSentEvent)="chosenCurrency2 = $event"
   >
   </app-currency-input>
 </form>
-<mat-button-toggle (click)="sendData()">CLICK</mat-button-toggle>
+<mat-button-toggle (click)="test()">CLICK</mat-button-toggle>
