@@ -8,11 +8,10 @@ import {Currency} from "./interfaces/currency";
 })
 export class CurrencyRateService {
 
-  backendUrl: string = "http://127.0.0.1:8000/"
   constructor(private http: HttpClient) { }
 
   fetchCurrencies(){
-    return this.http.get<any[]>('/api/currency/').pipe(map
-    (res=>res.map(item=>item.currency_code)))
+    return this.http.get<Currency[]>('/api/currency/').pipe(map
+    (res=>res.map(item=>item.currencyCode)))
   }
 }
