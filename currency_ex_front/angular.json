@@ -56,7 +56,13 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -68,8 +74,7 @@
               "browserTarget": "currency_ex_front:build:production"
             },
             "development": {
-              "browserTarget": "currency_ex_front:build:development",
-              "proxyConfig": "src/proxy.json"
+              "browserTarget": "currency_ex_front:build:development"
             }
           },
           "defaultConfiguration": "development"
