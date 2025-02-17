@@ -1,4 +1,4 @@
 export interface Currency {
   continent: string;
-  currencyCode: string;
+  currency_code: string;
 }
