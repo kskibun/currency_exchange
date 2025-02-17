@@ -1,13 +1,29 @@
-<form [formGroup]="formGrp">
-  <div class="input-field col s6">
-  <mat-form-field ngDefaultControl>
-    <mat-label>{{label}}</mat-label>
-    <mat-select [formControlName]="selectedCtrl" required>
-      <mat-option *ngFor="let currency of currencies | async | keyvalue" [value]=currency.value (click)="xxx(currency.value)">{{currency.value}}</mat-option>
-    </mat-select>
-      <mat-error *ngIf="formGrp.controls[selectedCtrl].errors?.['required']">
-        {{ label }} is required.
-      </mat-error>
-  </mat-form-field>
-  </div>
-</form>
+<div id="wrapper">
+  <form [formGroup]="formGrp">
+    <div class="input-field col s6" id="div1">
+    <mat-form-field ngDefaultControl>
+      <mat-label>{{label}}</mat-label>
+      <mat-select [formControlName]="currencyControl" required>
+        <mat-option *ngFor="let currency of currencies | async | keyvalue" [value]=currency.value (click)="xxx(currency.value)">{{currency.value}}</mat-option>
+      </mat-select>
+        <mat-error *ngIf="formGrp.controls[currencyControl].errors?.['required']">
+          {{ label }} is required.
+        </mat-error>
+    </mat-form-field>
+    </div>
+  </form>
+
+
+  <form [formGroup]="formGrp">
+    <div class="input-field col s6" id="div2">
+      <mat-form-field ngDefaultControl floatLabel="always">
+      <mat-label>Currency</mat-label>
+        <input matInput type="number" placeholder="0" id="input_field" [formControlName]="currencyAmountControl"/>
+        <mat-error *ngIf="formGrp.get('currencyAmountControl')?.invalid && formGrp.get('currencyAmountControl')?.touched">
+          {{currencyInputErrors(currencyAmountControl)}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+

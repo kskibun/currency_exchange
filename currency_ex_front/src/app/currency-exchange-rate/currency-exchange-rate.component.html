@@ -3,8 +3,9 @@
     [formGrp]= "formValidator"
     label = "currency1"
     [currencies] = "availableCurrencies$"
-    selectedCtrl="currency"
+    currencyControl="currency"
     (currenciesToSentEvent)="chosenCurrency1 = $event"
+    currencyAmountControl="currency1Amount"
   >
   </app-currency-input>
 
@@ -12,9 +13,10 @@
     [formGrp]= "formValidator"
     label = "currency2"
     [currencies] = "availableCurrencies$"
-    selectedCtrl="currency2"
+    currencyControl="currency2"
     (currenciesToSentEvent)="chosenCurrency2 = $event"
+    currencyAmountControl="currency2Amount"
   >
   </app-currency-input>
 </form>
-<mat-button-toggle (click)="test()">CLICK</mat-button-toggle>
+<mat-button-toggle (click)="sendData()" [disabled]="formValidator.get('currency').invalid || formValidator.get('currency2').invalid">CLICK</mat-button-toggle>

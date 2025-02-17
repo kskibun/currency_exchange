@@ -5,6 +5,7 @@ import {CurrencyRateService} from "../currency-rate.service";
 import {Observable} from "rxjs";
 import {DataToSend} from "../interfaces/data-to-send";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment.development";
 
 
 @Component({
@@ -15,7 +16,8 @@ import {HttpClient} from "@angular/common/http";
 export class CurrencyExchangeRateComponent implements OnInit{
     formValidator : FormGroup;
     availableCurrencies$: Observable<any>;
-    parsedData: any;
+    chosenCurrency1: any;
+    chosenCurrency2: any;
     constructor(private fb: FormBuilder,
                 private service: CurrencyRateService,
                 private http: HttpClient) {
@@ -24,14 +26,17 @@ export class CurrencyExchangeRateComponent implements OnInit{
     ngOnInit(): void{
       this.formValidator = this.fb.group({
         currency: ['', [Validators.required]],
-        currency2: ['', [Validators.required]]
+        currency2: ['', [Validators.required]],
+        currency1Amount: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+        currency2Amount: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
       })
       this.availableCurrencies$ = this.service.fetchCurrencies()
     }
 
 
     sendData(){
-
-
+      this.http.get<any[]>(`${environment.apiUrl}/currencies/${this.chosenCurrency1}/${this.chosenCurrency2}` ).subscribe(
+        res=>console.log(res)
+      )
     }
 }
