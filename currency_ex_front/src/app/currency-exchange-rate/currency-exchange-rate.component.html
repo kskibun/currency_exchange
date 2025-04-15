@@ -6,6 +6,7 @@
     currencyControl="currency"
     (currenciesToSentEvent)="chosenCurrency1 = $event"
     currencyAmountControl="currency1Amount"
+    (validityEvent)="validCurrencies = $event"
   >
   </app-currency-input>
 
@@ -15,8 +16,8 @@
     [currencies] = "availableCurrencies$"
     currencyControl="currency2"
     (currenciesToSentEvent)="chosenCurrency2 = $event"
-    currencyAmountControl="currency2Amount"
+    currencyAmountControl="calculatedCurrency"
   >
   </app-currency-input>
 </form>
-<mat-button-toggle (click)="sendData()" [disabled]="formValidator.get('currency').invalid || formValidator.get('currency2').invalid">CLICK</mat-button-toggle>
+<mat-button-toggle (click)="sendData()" [disabled]="buttonDisabled">CLICK</mat-button-toggle>

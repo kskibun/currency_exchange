@@ -14,23 +14,16 @@ export class CurrencyInputComponent implements OnInit{
   @Input() currencyControl: any;
   @Input() currencyAmountControl: any;
   @Output() currenciesToSentEvent = new EventEmitter();
+  @Output() validityEvent = new EventEmitter();
   selectedCurrency: any;
 
   ngOnInit(): void {
   }
 
 
-  xxx(chosenCurrency: DataToSend){
+  emitChosenCurrency(chosenCurrency: DataToSend){
     this.selectedCurrency = chosenCurrency
     this.currenciesToSentEvent.emit([this.selectedCurrency])
   }
 
-
-  currencyInputErrors(controlName){
-    const control = this.currencyControl.get(controlName);
-    console.log(controlName)
-    if (control.hasError('required')) return 'This field is required'
-
-    return '';
-  }
 }

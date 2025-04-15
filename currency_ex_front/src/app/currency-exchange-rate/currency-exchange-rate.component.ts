@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 import {DataToSend} from "../interfaces/data-to-send";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment.development";
+import {getCurrencySymbol} from "@angular/common";
 
 
 @Component({
@@ -18,6 +19,9 @@ export class CurrencyExchangeRateComponent implements OnInit{
     availableCurrencies$: Observable<any>;
     chosenCurrency1: any;
     chosenCurrency2: any;
+    validCurrencies: boolean;
+    buttonDisabled: boolean = true;
+    calcOutput: boolean = false;
     constructor(private fb: FormBuilder,
                 private service: CurrencyRateService,
                 private http: HttpClient) {
@@ -25,12 +29,13 @@ export class CurrencyExchangeRateComponent implements OnInit{
 
     ngOnInit(): void{
       this.formValidator = this.fb.group({
-        currency: ['', [Validators.required]],
-        currency2: ['', [Validators.required]],
-        currency1Amount: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
-        currency2Amount: ['', [Validators.required, Validators.pattern('^[0-9]*$')]]
+        currency: [null, [Validators.required]],
+        currency2: [null, [Validators.required]],
+        currency1Amount: [null, [Validators.required, Validators.pattern('^[0-9]*$')]],
+        calculatedCurrency: [{value:null, disabled:true}]
       })
       this.availableCurrencies$ = this.service.fetchCurrencies()
+      this.formValidator.valueChanges.subscribe(()=> this.checkCurrencyCodeInput())
     }
 
 
@@ -39,4 +44,12 @@ export class CurrencyExchangeRateComponent implements OnInit{
         res=>console.log(res)
       )
     }
+
+    checkCurrencyCodeInput(){
+      const boolArr = Object.keys(this.formValidator.controls).map(key=>{
+        const ctrl = this.formValidator.get(key)
+        return ctrl?.valid || ctrl.disabled
+      })
+      this.buttonDisabled = boolArr.some(val => val ===false)
+      }
 }
