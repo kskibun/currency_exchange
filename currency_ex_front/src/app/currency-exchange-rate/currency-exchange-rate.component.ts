@@ -17,10 +17,11 @@ import {getCurrencySymbol} from "@angular/common";
 export class CurrencyExchangeRateComponent implements OnInit{
     formValidator : FormGroup;
     availableCurrencies$: Observable<any>;
-    chosenCurrency1: any;
-    chosenCurrency2: any;
+    chosenCurrency1: string;
+    chosenCurrency2: string;
     validCurrencies: boolean;
     buttonDisabled: boolean = true;
+    amountLabel: string;
     calcOutput: boolean = false;
     constructor(private fb: FormBuilder,
                 private service: CurrencyRateService,

@@ -13,6 +13,7 @@ export class CurrencyInputComponent implements OnInit{
   @Input() currencies: any;
   @Input() currencyControl: any;
   @Input() currencyAmountControl: any;
+  @Input() amountLabel: string;
   @Output() currenciesToSentEvent = new EventEmitter();
   @Output() validityEvent = new EventEmitter();
   selectedCurrency: any;
@@ -20,6 +21,9 @@ export class CurrencyInputComponent implements OnInit{
   ngOnInit(): void {
   }
 
+  setLabel(){
+
+  }
 
   emitChosenCurrency(chosenCurrency: DataToSend){
     this.selectedCurrency = chosenCurrency
