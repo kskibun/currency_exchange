@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Currency} from "../interfaces/currency";
+import {CalculatedCurrencyAmount, Currency} from "../interfaces/currency";
 import {CurrencyRateService} from "../currency-rate.service";
 import {Observable} from "rxjs";
 import {DataToSend} from "../interfaces/data-to-send";
@@ -22,7 +22,8 @@ export class CurrencyExchangeRateComponent implements OnInit{
     validCurrencies: boolean;
     buttonDisabled: boolean = true;
     amountLabel: string;
-    calcOutput: boolean = false;
+    calcOutput: number;
+    chosenCurrencyAmount: number;
     constructor(private fb: FormBuilder,
                 private service: CurrencyRateService,
                 private http: HttpClient) {
@@ -41,8 +42,12 @@ export class CurrencyExchangeRateComponent implements OnInit{
 
 
     sendData(){
-      this.http.get<any[]>(`${environment.apiUrl}/currencies/${this.chosenCurrency1}/${this.chosenCurrency2}` ).subscribe(
-        res=>console.log(res)
+      this.http.get<any[]>(`${environment.apiUrl}/currencies/${this.chosenCurrency1}/${this.chosenCurrency2}/${this.chosenCurrencyAmount}` ).subscribe(
+        {
+          next: (value: Object)=>(Object.values(value).map((s: CalculatedCurrencyAmount)=>
+          {if (s.calc_amount) this.formValidator.get('calculatedCurrency').setValue(s.calc_amount)})),
+          error: (err)=> alert(err.error)
+        }
       )
     }
 

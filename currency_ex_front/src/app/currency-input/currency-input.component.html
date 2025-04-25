@@ -23,7 +23,7 @@
       <mat-form-field ngDefaultControl floatLabel="always">
 
       <mat-label>{{ amountLabel }}</mat-label>
-      <input matInput type="text" placeholder="0" id="input_field" [formControlName]="currencyAmountControl">
+      <input (change)="sendCurrencyAmount()" matInput type="text" placeholder="0" id="input_field" [formControlName]="currencyAmountControl">
       <mat-error *ngIf="formGrp.get(currencyAmountControl).errors?.['required']">
           Amount of currency is needed
       </mat-error>

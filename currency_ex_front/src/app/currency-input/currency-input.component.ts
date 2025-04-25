@@ -16,18 +16,23 @@ export class CurrencyInputComponent implements OnInit{
   @Input() amountLabel: string;
   @Output() currenciesToSentEvent = new EventEmitter();
   @Output() validityEvent = new EventEmitter();
+  @Output() currencyAmount = new EventEmitter();
   selectedCurrency: any;
 
   ngOnInit(): void {
   }
 
-  setLabel(){
-
+  sendCurrencyAmount(){
+    this.currencyAmount.emit(this.formGrp.get(this.currencyAmountControl)?.value)
   }
 
   emitChosenCurrency(chosenCurrency: DataToSend){
     this.selectedCurrency = chosenCurrency
     this.currenciesToSentEvent.emit([this.selectedCurrency])
+  }
+
+  changeCurrencyAmount(){
+
   }
 
 }
