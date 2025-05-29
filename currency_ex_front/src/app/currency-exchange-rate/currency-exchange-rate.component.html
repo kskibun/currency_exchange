@@ -1,0 +1,26 @@
+<form>
+  <app-currency-input
+    [formGrp]= "formValidator"
+    label = "currency1"
+    [currencies] = "availableCurrencies$"
+    currencyControl="currency"
+    (currenciesToSentEvent)="chosenCurrency1 = $event"
+    currencyAmountControl="currency1Amount"
+    (validityEvent)="validCurrencies = $event"
+    amountLabel="Currency amount"
+    (currencyAmount)="chosenCurrencyAmount=$event"
+  >
+  </app-currency-input>
+
+  <app-currency-input
+    [formGrp]= "formValidator"
+    label = "currency2"
+    [currencies] = "availableCurrencies$"
+    currencyControl="currency2"
+    (currenciesToSentEvent)="chosenCurrency2 = $event"
+    currencyAmountControl="calculatedCurrency"
+    amountLabel="Currency amount after exchange"
+  >
+  </app-currency-input>
+</form>
+<mat-button-toggle (click)="sendData()" [disabled]="buttonDisabled">CLICK</mat-button-toggle>

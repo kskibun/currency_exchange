@@ -1,0 +1,37 @@
+<div id="wrapper">
+  <form [formGroup]="formGrp">
+    <div class="input-field col s6" id="div1">
+    <mat-form-field ngDefaultControl>
+      <mat-label>{{label}}</mat-label>
+      <mat-select [formControlName]="currencyControl" required>
+        <mat-option *ngFor="let currency of currencies | async | keyvalue"
+                    [value]=currency.value
+                    (click)="emitChosenCurrency(currency.value)"
+
+        >{{currency.value}}</mat-option>
+      </mat-select>
+        <mat-error *ngIf="formGrp.get(currencyControl).errors?.['required']">
+          {{ label }} is required.
+        </mat-error>
+    </mat-form-field>
+    </div>
+  </form>
+
+
+  <form [formGroup]="formGrp">
+    <div class="input-field col s6" id="div2">
+      <mat-form-field ngDefaultControl floatLabel="always">
+
+      <mat-label>{{ amountLabel }}</mat-label>
+      <input (change)="sendCurrencyAmount()" matInput type="text" placeholder="0" id="input_field" [formControlName]="currencyAmountControl">
+      <mat-error *ngIf="formGrp.get(currencyAmountControl).errors?.['required']">
+          Amount of currency is needed
+      </mat-error>
+      <mat-error *ngIf="formGrp.get(currencyAmountControl).errors?.['pattern']">
+          Only numeric values allowed
+      </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+

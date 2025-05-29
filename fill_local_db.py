@@ -30,30 +30,32 @@ for currency_code, continent in init_currencies.items():
         logger.error(f'Encountered error on DB site, {err}')
 
 currencies_pairs = DataProcessing.currencies_pair_preparation(init_currencies.keys())
-print(currencies_pairs)
 tickers = yf.Tickers(currencies_pairs)
 for pair in currencies_pairs:
+    logger.debug(pair)
     data_to_send = tickers.history()['Close'][pair]
     bulk_exchange_rate = []
     # format data to aware time
+    logger.debug(data_to_send)
     timestamp_from_ticker = [timezone.make_aware(timestamp) for timestamp in data_to_send.index.tolist()]
-    print(f'Handling pair {pair}')
+    logger.info(f'Handling pair {pair}')
+    print(timestamp_from_ticker)
     currencies = Currency.objects.filter(currency_code__in=[pair[:3], pair[3:6]])
     for index, date in enumerate(timestamp_from_ticker):
         existing_exchange_rate = CurrencyRate.objects.filter(date=date, currency1=currencies[0],
                                                              currency2=currencies[1])
         if existing_exchange_rate:
-            print(
+            logger.info(
                 f'Exchange rate for {currencies[0]} and {currencies[1]} for date {date} is already present in the DB, '
                 f'validating if inverse pair present')
             existing_exchange_rate_reversed = CurrencyRate.objects.filter(date=date, currency1=currencies[1],
                                                                           currency2=currencies[0])
             if existing_exchange_rate_reversed:
-                print(
+                logger.info(
                     f'Exchange rate for {currencies[0]} and {currencies[1]} and inverse pair is present')
             else:
                 currencies_pairs_to_send_reversed = CurrencyRate(currency1=currencies[1], currency2=currencies[0],
-                                                    exchange_rate=data_to_send.iloc[index], date=date)
+                                                                 exchange_rate=data_to_send.iloc[index], date=date)
                 bulk_exchange_rate.append(currencies_pairs_to_send_reversed)
         else:
             currencies_pairs_to_send = CurrencyRate(currency1=currencies[0], currency2=currencies[1],

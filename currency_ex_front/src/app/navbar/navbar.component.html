@@ -1,0 +1,13 @@
+<nav>
+  <div class="nav-wrapper">
+    <a class="brand-logo center">Currency exchange app</a>
+    <ul class="left hide-on-med-and-down">
+      <li *ngFor="let page of pagesDefined | keyvalue; let i = index"
+          routerLinkActive="active"
+          routerLink="{{page.value}}"
+          [routerLinkActiveOptions]="{'exact':true}">
+        <a>{{page.key}}</a>
+      </li>
+    </ul>
+  </div>
+</nav>

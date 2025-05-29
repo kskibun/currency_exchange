@@ -1,0 +1,14 @@
+#wrapper {
+  display: flex;
+  width: 50%;
+}
+#div1 {
+  flex: 1;
+}
+#div2 {
+    margin-left: 20px;
+}
+
+#input_field {
+  -moz-appearance: textfield;
+}
